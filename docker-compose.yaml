@@ -1,10 +1,43 @@
+version: '3.8'
+
 services:
-  ffc-template-node:
+  ffc-future-grants-file-store:
     build:
       context: .
       target: production
-    image: ffc-template-node
-    container_name: ffc-template-node
+    image: ffc-future-grants-file-store
+    container_name: ffc-future-grants-file-store
+    depends_on:
+      - ffc-future-grants-file-store-postgres
     environment:
-      APPINSIGHTS_CLOUDROLE: ffc-template-node-local
-      APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
+      POSTGRES_DB: ffc_future_grants_file_store
+      POSTGRES_PASSWORD: ppp
+      POSTGRES_USER: postgres
+      POSTGRES_HOST: ffc-future-grants-file-store-postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_SCHEMA_NAME: public
+      SERVICE_BUS_HOST: ${SERVICE_BUS_HOST:-notset}
+      SERVICE_BUS_PASSWORD: ${SERVICE_BUS_PASSWORD:-notset}
+      SERVICE_BUS_USER: ${SERVICE_BUS_USER:-notset}
+      DESIRABILITY_SCORE_TOPIC_ADDRESS: ${DESIRABILITY_SCORE_TOPIC_ADDRESS:-notset}
+      DESIRABILITY_SCORE_PROD_TOPIC_ADDRESS: ${DESIRABILITY_SCORE_PROD_TOPIC_ADDRESS:-notset}
+      CALCULATE_SCORE_QUEUE_ADDRESS: ${CALCULATE_SCORE_QUEUE_ADDRESS:-notset}
+      COST_REQUEST_QUEUE_ADDRESS: ${COST_REQUEST_QUEUE_ADDRESS:-ffc-grants-slurry-cost-details-req}${MESSAGE_QUEUE_SUFFIX}
+      COST_RESPONSE_QUEUE_ADDRESS: ${COST_RESPONSE_QUEUE_ADDRESS:-ffc-grants-slurry-cost-details-res}${MESSAGE_QUEUE_SUFFIX}
+      SCORE_RESPONSE_QUEUE_ADDRESS: ${SCORE_RESPONSE_QUEUE_ADDRESS:-ffc-future-grants-file-store-res}${MESSAGE_QUEUE_SUFFIX}
+      SCORE_REQUEST_QUEUE_ADDRESS: ${SCORE_REQUEST_QUEUE_ADDRESS:-ffc-future-grants-file-store-req}${MESSAGE_QUEUE_SUFFIX}
+
+
+  ffc-future-grants-file-store-postgres:
+    image: postgres:11.4-alpine
+    environment:
+      POSTGRES_DB: ffc_future_grants_file_store
+      POSTGRES_PASSWORD: ppp
+      POSTGRES_USER: postgres
+      APPINSIGHTS_CLOUDROLE: ffc-grants-desirability
+      APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY:-notset}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data: {}
