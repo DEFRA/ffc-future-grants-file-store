@@ -17,15 +17,23 @@
   "contributors": [],
   "license": "OGL-UK-3.0",
   "dependencies": {
-    "@hapi/hapi": "21.3.2",
-    "applicationinsights": "2.8.0"
-  },
-  "devDependencies": {
-    "jest": "29.7.0",
-    "jest-junit": "16.0.0",
-    "nodemon": "3.0.1",
-    "standard": "17.1.0"
-  },
+    "@hapi/hapi": "^20.2.2",
+    "applicationinsights": "^2.3.5",
+    "ffc-messaging": "^2.5.1",
+    "ffc-protective-monitoring": "^1.0.3",
+    "lodash": "^4.17.21",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "7.0.0-alpha.9"
+    },
+    "devDependencies": {
+      "jest": "^26.6.3",
+      "jest-junit": "^13.0.0",
+      "lint": "^1.1.2",
+      "liquibase": "^1.0.1",
+      "nodemon": "^2.0.7",
+      "standard": "^16.0.3"
+    },
   "standard": {
     "globals": [
       "describe",
