@@ -1,15 +1,18 @@
+version: '3.8'
 # This override file should be used when running this service in isolation
 # to provide dependencies and expose ports for local testing
-
 services:
-  ffc-template-node:
+  ffc-future-grants-file-store:
     build:
       target: development
-    image: ffc-template-node-development
-    container_name: ffc-template-node-development
+    image: ffc-future-grants-file-store-development
+    container_name: ffc-future-grants-file-store-development
     ports:
-      - "3000:3000"
-      - "9229:9229"
+      - "3002:3000"
+      - "9231:9229"
     volumes:
-      - ./app:/home/node/app
+      - ./app/:/home/node/app/
       - ./package.json:/home/node/package.json
+  ffc-future-grants-file-store-postgres:
+    ports:
+      - "5432:5432"
