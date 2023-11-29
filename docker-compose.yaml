@@ -10,7 +10,7 @@ services:
     depends_on:
       - ffc-future-grants-file-store-postgres
     environment:
-      POSTGRES_DB: ffc-future-grants-file-store
+      POSTGRES_DB: ffc_future_grants_file_store
       POSTGRES_PASSWORD: ppp
       POSTGRES_USER: postgres
       POSTGRES_HOST: ffc-future-grants-file-store-postgres
@@ -31,7 +31,7 @@ services:
   ffc-future-grants-file-store-postgres:
     image: postgres:11.4-alpine
     environment:
-      POSTGRES_DB: ffc-future-grants-file-store
+      POSTGRES_DB: ffc_future_grants_file_store
       POSTGRES_PASSWORD: ppp
       POSTGRES_USER: postgres
       APPINSIGHTS_CLOUDROLE: ffc-grants-desirability
