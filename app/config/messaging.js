@@ -19,10 +19,8 @@ const mqSchema = Joi.object({
     type: 'queue'
   },
   applicationRequestMsgType: `${msgTypePrefix}.app.request`,
- 
   fetchApplicationRequestMsgType: `${msgTypePrefix}.fetch.app.request`
 })
-
 const mqConfig = {
   messageQueue: {
     host: process.env.MESSAGE_QUEUE_HOST,
@@ -48,10 +46,9 @@ const mqResult = mqSchema.validate(mqConfig, {
 if (mqResult.error) {
   throw new Error(`The message queue config is invalid. ${mqResult.error.message}`)
 }
-
 const applicationRequestQueue = { ...mqResult.value.messageQueue, ...mqResult.value.applicationRequestQueue, address: process.env.APPLICATION_REQUEST_QUEUE_ADDRESS }
 const applicationRequestMsgType = mqResult.value.applicationRequestMsgType
 module.exports = {
   applicationRequestQueue,
-  applicationRequestMsgType,
+  applicationRequestMsgType
 }
