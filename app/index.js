@@ -1,16 +1,45 @@
 const server = require('./server')
+const { MessageReceiver } = require('ffc-messaging')
 const { Client } = require('pg');
 const { DefaultAzureCredential } = require('@azure/identity');
+const MessageSenders = require('./messaging/create-message-sender')
+const MessageReceivers = require('./messaging/create-message-receiver');
+const {  applicationRequestQueue } = require('./config/messaging');
 
+
+let testt
 const init = async () => {
-  await executeSQLScript();
+  try {
+    await executeSQLScript();
+    fileStoreReceiver = new MessageReceiver(applicationRequestQueue, (msg)=>console.log(msg.body))
+ testt = await fileStoreReceiver.subscribe()
   await server.start()
   console.log('Server running on %s', server.info.uri)
+  } catch (error) {
+    console.error(error)
+    await fileStoreReceiver.closeConnection()
+    cleanup()
+    process.exit(1)
+  }
+  
 }
-
-process.on('unhandledRejection', (err) => {
-  console.log(err)
+process.on('unhandledRejection', async (err) => {
+  console.log('unhandled Rejection error: \n',err)
+  await fileStoreReceiver.closeConnection()
   process.exit(1)
+})
+
+process.on('SIGINT', () => {
+  server.stop()
+    .then(() => {
+      cleanup()
+      process.exit(0)
+    })
+    .catch(err => {
+      console.error(err)
+      cleanup()
+      process.exit(1)
+    })
 })
 
 async function executeSQLScript() {
@@ -42,6 +71,9 @@ async function executeSQLScript() {
     client.end();
   }
 }
-
-
 init()
+function cleanup () {
+  MessageSenders.closeAllConnections()
+  MessageReceivers.closeAllConnections()
+}
+
