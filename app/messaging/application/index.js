@@ -1,8 +1,8 @@
 const { sendMessage, receiveMessage } = require('../')
-const { applicationRequestQueue, applicationRequestMsgType, fetchApplicationRequestMsgType, applicationResponseQueue } = require('../../config')
-console.log(applicationRequestQueue, applicationRequestMsgType, fetchApplicationRequestMsgType, applicationResponseQueue)
+const { fileStoreQueue, applicationRequestMsgType, fetchApplicationRequestMsgType, applicationResponseQueue } = require('../../config')
+console.log(fileStoreQueue, applicationRequestMsgType, fetchApplicationRequestMsgType, applicationResponseQueue)
 async function getApplication (applicationReference, sessionId) {
-  await sendMessage({ applicationReference }, fetchApplicationRequestMsgType, applicationRequestQueue, { sessionId })
+  await sendMessage({ applicationReference }, fetchApplicationRequestMsgType, fileStoreQueue, { sessionId })
   return receiveMessage(sessionId, applicationResponseQueue)
 }
 
@@ -10,7 +10,7 @@ async function sendApplication (application, sessionId) {
   await sendMessage(
     application,
     applicationRequestMsgType,
-    applicationRequestQueue,
+    fileStoreQueue,
     { sessionId }
   )
   const response = await receiveMessage(

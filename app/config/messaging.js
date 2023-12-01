@@ -1,6 +1,6 @@
 const Joi = require('joi')
 
-const msgTypePrefix = 'uk.gov.ffc.ahwr'
+const msgTypePrefix = 'uk.gov.ffc.grants'
 
 const mqSchema = Joi.object({
   messageQueue: {
@@ -9,10 +9,6 @@ const mqSchema = Joi.object({
     password: Joi.string(),
     useCredentialChain: Joi.bool().default(false),
     appInsights: Joi.object()
-  },
-  applicationRequestQueue: {
-    address: process.env.APPLICATION_REQUEST_QUEUE_ADDRESS,
-    type: 'queue'
   },
   fileStoreQueue: {
     address: process.env.FILE_STORE_QUEUE_ADDRESS,
@@ -29,10 +25,6 @@ const mqConfig = {
     useCredentialChain: process.env.NODE_ENV === 'production',
     appInsights: process.env.NODE_ENV === 'production' ? require('applicationinsights') : undefined
   },
-  applicationRequestQueue: {
-    address: process.env.APPLICATION_REQUEST_QUEUE_ADDRESS,
-    type: 'queue'
-  },
   fileStoreQueue: {
     address: process.env.FILE_STORE_QUEUE_ADDRESS,
     type: 'queue'
@@ -46,9 +38,9 @@ const mqResult = mqSchema.validate(mqConfig, {
 if (mqResult.error) {
   throw new Error(`The message queue config is invalid. ${mqResult.error.message}`)
 }
-const applicationRequestQueue = { ...mqResult.value.messageQueue, ...mqResult.value.applicationRequestQueue, address: process.env.APPLICATION_REQUEST_QUEUE_ADDRESS }
+const fileStoreQueue = { ...mqResult.value.messageQueue, ...mqResult.value.fileStoreQueue, address: process.env.FILE_STORE_QUEUE_ADDRESS }
 const applicationRequestMsgType = mqResult.value.applicationRequestMsgType
 module.exports = {
-  applicationRequestQueue,
+  fileStoreQueue,
   applicationRequestMsgType
 }

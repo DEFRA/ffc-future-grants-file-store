@@ -4,20 +4,21 @@ const { Client } = require('pg')
 const { DefaultAzureCredential } = require('@azure/identity')
 const MessageSenders = require('./messaging/create-message-sender')
 const MessageReceivers = require('./messaging/create-message-receiver')
-const { applicationRequestQueue } = require('./config/messaging')
+const { fileStoreQueue } = require('./config/messaging')
 let fileStoreReceiver
 const init = async () => {
   try {
     await executeSQLScript()
-    fileStoreReceiver = new MessageReceiver(applicationRequestQueue, (msg) =>
+    console.log(fileStoreQueue)
+    fileStoreReceiver = new MessageReceiver(fileStoreQueue, async (msg) => {
       console.log(msg.body)
-    )
+      await fileStoreReceiver.completeMessage(msg)
+    })
     await fileStoreReceiver.subscribe()
     await server.start()
     console.log('Server running on %s', server.info.uri)
   } catch (error) {
     console.error(error)
-    await fileStoreReceiver.closeConnection()
     cleanup()
     process.exit(1)
   }
@@ -27,7 +28,6 @@ process.on('unhandledRejection', async (err) => {
   await fileStoreReceiver.closeConnection()
   process.exit(1)
 })
-
 process.on('SIGINT', () => {
   server
     .stop()
@@ -41,7 +41,10 @@ process.on('SIGINT', () => {
       process.exit(1)
     })
 })
-
+process.on('SIGTERM', async () => {
+  await cleanup()
+  process.exit(0)
+})
 async function executeSQLScript () {
   const client = new Client({
     user: process.env.POSTGRES_USER,
@@ -50,10 +53,8 @@ async function executeSQLScript () {
     port: process.env.POSTGRES_PORT,
     password: process.env.POSTGRES_PASSWORD
   })
-
   try {
     await client.connect()
-
     if (process.env.NODE_ENV === 'production') {
       const credential = new DefaultAzureCredential()
       const accessToken = await credential.getToken(
@@ -63,11 +64,9 @@ async function executeSQLScript () {
         `SET SESSION AUTHORIZATION DEFAULT, PUBLIC, ${accessToken.token}`
       )
     }
-
     const fs = require('fs')
     const sqlScript = fs.readFileSync('./sql/tables.sql', 'utf8')
     await client.query(sqlScript)
-
     console.log('Table creation script executed successfully.')
   } catch (error) {
     console.error('Error:', error)
@@ -76,7 +75,7 @@ async function executeSQLScript () {
   }
 }
 init()
-function cleanup () {
-  MessageSenders.closeAllConnections()
-  MessageReceivers.closeAllConnections()
+async function cleanup () {
+  await MessageSenders.closeAllConnections()
+  await MessageReceivers.closeAllConnections()
 }
