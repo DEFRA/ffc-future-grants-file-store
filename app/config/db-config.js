@@ -25,7 +25,7 @@ const retry = {
 }
 
 const dbConfig = {
-  database: process.env.POSTGRES_DB || 'ffc-future-grants-file-store',
+  database: process.env.POSTGRES_DB || 'ffc_future_grants_file_store',
   dialect: 'postgres',
   dialectOptions: {
     ssl: isProd()
