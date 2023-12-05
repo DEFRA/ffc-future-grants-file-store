@@ -12,9 +12,8 @@ let fileStoreReceiver
 const init = async () => {
   try {
     await executeSQLScript()
-    console.log(fileStoreQueue)
     fileStoreReceiver = new MessageReceiver(fileStoreQueue, async (msg) => {
-     await saveMetadataHandler(msg.body.data)
+      await saveMetadataHandler(msg.body.data)
       await fileStoreReceiver.completeMessage(msg)
     })
     await fileStoreReceiver.subscribe()
@@ -75,7 +74,7 @@ async function executeSQLScript () {
     }
     await clientWithOutDb.connect()
     const res = await clientWithOutDb.query(`SELECT datname FROM pg_catalog.pg_database WHERE datname = '${DB_NAME}'`)
-    if(res.rowCount === 0){
+    if (res.rowCount === 0) {
       console.log(`${DB_NAME} database not found, creating it...`)
       await clientWithOutDb.query(`CREATE DATABASE "${DB_NAME}";`)
       console.log(`created database ${DB_NAME}.`)
