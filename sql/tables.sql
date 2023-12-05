@@ -4,7 +4,7 @@ BEGIN
     CREATE TABLE ffc_future_grants_file_store (
       file_data_id serial PRIMARY KEY,
       file_name VARCHAR(255),
-      file_size BIGINT,
+      file_size VARCHAR(50),
       file_type VARCHAR(50),
       category VARCHAR(50),
       user_ID INT,
