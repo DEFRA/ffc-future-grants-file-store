@@ -3,10 +3,10 @@ const { Client } = require('pg')
 const saveMetadataHandler = async (data) => {
   const query = `
       INSERT INTO ffc_future_grants_file_store (
-        file_name, file_size, file_type, category,
+        file_id, file_name, file_size, file_type, category,
         user_ID, business_ID, case_ID, grant_scheme,
         grant_sub_scheme, grant_theme, date_time, storage_url
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
     `
   const client = new Client({
     user: process.env.POSTGRES_USER,
@@ -19,6 +19,7 @@ const saveMetadataHandler = async (data) => {
     await client.connect()
     for (const file of data) {
       const values = [
+        file.fileId,
         file.fileName,
         file.fileSize,
         file.fileType,
@@ -43,5 +44,22 @@ const saveMetadataHandler = async (data) => {
     await client.end()
   }
 }
+const deleteMetedataHandler = async (fileId) => {
+  const query = 'DELETE FROM ffc_future_grants_file_store WHERE file_id = $1'
+  const client = new Client({
+    user: process.env.POSTGRES_USER,
+    host: process.env.POSTGRES_HOST,
+    database: process.env.POSTGRES_DB,
+    port: process.env.POSTGRES_PORT,
+    password: process.env.POSTGRES_PASSWORD
+  })
+  try {
+    await client.connect()
+    await client.query(query, [fileId])
+    console.log(`File with ID: ${fileId} deleted.`)
+  } catch (err) {
+    console.log(err)
+  }
+}
 
-module.exports = { saveMetadataHandler }
+module.exports = { saveMetadataHandler, deleteMetedataHandler }

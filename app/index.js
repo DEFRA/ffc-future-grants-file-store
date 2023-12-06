@@ -5,7 +5,7 @@ const { DefaultAzureCredential } = require('@azure/identity')
 const MessageSenders = require('./messaging/create-message-sender')
 const MessageReceivers = require('./messaging/create-message-receiver')
 const { fileStoreQueue } = require('./config/messaging')
-const { saveMetadataHandler } = require('./utils/recieveQueueHelperFunctions')
+const { saveMetadataHandler, deleteMetedataHandler } = require('./utils/recieveQueueHelperFunctions')
 const fs = require('fs')
 
 let fileStoreReceiver
@@ -13,7 +13,11 @@ const init = async () => {
   try {
     await executeSQLScript()
     fileStoreReceiver = new MessageReceiver(fileStoreQueue, async (msg) => {
-      await saveMetadataHandler(msg.body.data)
+      if (msg.body.method === 'add') {
+        await saveMetadataHandler(msg.body.data)
+      } else {
+        await deleteMetedataHandler(msg.body.fileId)
+      }
       await fileStoreReceiver.completeMessage(msg)
     })
     await fileStoreReceiver.subscribe()

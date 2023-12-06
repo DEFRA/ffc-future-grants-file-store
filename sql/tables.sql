@@ -3,6 +3,7 @@ BEGIN
   IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'ffc_future_grants_file_store') THEN
     CREATE TABLE ffc_future_grants_file_store (
       file_data_id serial PRIMARY KEY,
+      file_id VARCHAR(100),
       file_name VARCHAR(255),
       file_size VARCHAR(50),
       file_type VARCHAR(50),
