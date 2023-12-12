@@ -7,6 +7,7 @@ BEGIN
       file_name VARCHAR(255),
       file_size VARCHAR(50),
       file_type VARCHAR(50),
+      file_extension VARCHAR(10),
       category VARCHAR(50),
       user_ID INT,
       business_ID INT,
