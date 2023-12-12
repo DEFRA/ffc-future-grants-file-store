@@ -1,12 +1,32 @@
 const { Client } = require('pg')
+const {
+  applicationRequestMsgType,
+  userDataResponseQueueAddress
+} = require('../config/messaging')
+const { sendMessage } = require('../messaging')
+
+const initUserDataReceiver = async (sessionId, userId) => {
+  try {
+    const userData = await getMetadataHandler(userId)
+    await sendMessage(
+      { data: userData, sessionId },
+      applicationRequestMsgType,
+      userDataResponseQueueAddress,
+      { sessionId }
+    )
+    console.log('Response successfull sent back')
+  } catch (error) {
+    console.log('Error in setting up user data message receiver:/\n ', error)
+  }
+}
 
 const saveMetadataHandler = async (data) => {
   const query = `
       INSERT INTO ffc_future_grants_file_store (
-        file_id, file_name, file_size, file_type, category,
+        file_id, file_name, file_size, file_type, file_extension, category,
         user_ID, business_ID, case_ID, grant_scheme,
         grant_sub_scheme, grant_theme, date_time, storage_url
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
     `
   const client = new Client({
     user: process.env.POSTGRES_USER,
@@ -23,6 +43,7 @@ const saveMetadataHandler = async (data) => {
         file.fileName,
         file.fileSize,
         file.fileType,
+        file.fileExtension,
         file.category,
         file.userId,
         file.bussinessId,
@@ -61,5 +82,56 @@ const deleteMetedataHandler = async (fileId) => {
     console.log(err)
   }
 }
+const getMetadataHandler = async (userId) => {
+  const query = 'SELECT * FROM ffc_future_grants_file_store WHERE user_id = $1'
+  const client = new Client({
+    user: process.env.POSTGRES_USER,
+    host: process.env.POSTGRES_HOST,
+    database: process.env.POSTGRES_DB,
+    port: process.env.POSTGRES_PORT,
+    password: process.env.POSTGRES_PASSWORD
+  })
+  try {
+    await client.connect()
+    const fetchedData = await client.query(query, [userId])
+    const rows = fetchedData.rows
+    console.log('Fetched Data:====>>>> \n', userId)
+    await client.end()
 
-module.exports = { saveMetadataHandler, deleteMetedataHandler }
+    const data = {
+      claim: null,
+      multiForms: {
+        purchased: [],
+        paid: [],
+        inPlace: [],
+        conditions: []
+      }
+    }
+    if (rows.length) {
+      for (const file of rows) {
+        if (file.file_type === 'claim') {
+          data.claim = file
+        } else if (file.file_type === 'purchased') {
+          data.multiForms.purchased = [...data.multiForms.purchased, file]
+        } else if (file.file_type === 'paid') {
+          data.multiForms.paid = [...data.multiForms.paid, file]
+        } else if (file.file_type === 'inPlace') {
+          data.multiForms.inPlace = [...data.multiForms.inPlace, file]
+        } else if (file.file_type === 'conditions') {
+          data.multiForms.conditions = [...data.multiForms.conditions, file]
+        }
+      }
+    }
+
+    return data
+  } catch (error) {
+    await client.end()
+    console.log('Error in get user data handler: \n', error)
+  }
+}
+
+module.exports = {
+  saveMetadataHandler,
+  deleteMetedataHandler,
+  initUserDataReceiver
+}
