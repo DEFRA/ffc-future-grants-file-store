@@ -4,11 +4,12 @@ const { Client } = require('pg')
 const { DefaultAzureCredential } = require('@azure/identity')
 const MessageSenders = require('./messaging/create-message-sender')
 const MessageReceivers = require('./messaging/create-message-receiver')
-const { fileStoreQueue } = require('./config/messaging')
-const { saveMetadataHandler, deleteMetedataHandler } = require('./utils/recieveQueueHelperFunctions')
+const { fileStoreQueue, userDataRequestQueueAddress } = require('./config/messaging')
+const { saveMetadataHandler, deleteMetedataHandler, initUserDataReceiver } = require('./utils/recieveQueueHelperFunctions')
 const fs = require('fs')
 
 let fileStoreReceiver
+let userDataReceiver
 const init = async () => {
   try {
     await executeSQLScript()
@@ -21,6 +22,12 @@ const init = async () => {
       await fileStoreReceiver.completeMessage(msg)
     })
     await fileStoreReceiver.subscribe()
+    userDataReceiver = new MessageReceiver(userDataRequestQueueAddress,
+      async (msg) => {
+        await initUserDataReceiver(msg.body.sessionId, msg.body.userId)
+        await userDataReceiver.completeMessage(msg)
+      })
+    await userDataReceiver.subscribe()
     await server.start()
     console.log('Server running on %s', server.info.uri)
   } catch (error) {
@@ -32,6 +39,7 @@ const init = async () => {
 process.on('unhandledRejection', async (err) => {
   console.log('unhandled Rejection error: \n', err)
   await fileStoreReceiver.closeConnection()
+  await userDataReceiver.closeConnection()
   process.exit(1)
 })
 process.on('SIGINT', () => {
