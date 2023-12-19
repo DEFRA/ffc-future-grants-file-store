@@ -34,6 +34,7 @@ services:
       MESSAGE_QUEUE_SUFFIX: ${MESSAGE_QUEUE_SUFFIX:-notset}
       USER_DATA_REQ_QUEUE_ADDRESS: ${USER_DATA_REQ_QUEUE_ADDRESS:-notset}
       USER_DATA_RES_QUEUE_ADDRESS: ${USER_DATA_RES_QUEUE_ADDRESS:-notset}
+      FILES_STORED_TOPIC_ADDRESS: ${FILES_STORED_TOPIC_ADDRESS:-notset}
 
   ffc-future-grants-file-store-postgres:
     image: postgres:11.4-alpine

@@ -22,6 +22,10 @@ const mqSchema = Joi.object({
     address: process.env.USER_DATA_RES_QUEUE_ADDRESS,
     type: 'sessionQueue'
   },
+  filesStoredTopicAddress: {
+    address: process.env.FILES_STORED_TOPIC_ADDRESS,
+    type: 'topic'
+  },
   applicationRequestMsgType: `${msgTypePrefix}.app.request`,
   fetchApplicationRequestMsgType: `${msgTypePrefix}.fetch.app.request`
 })
@@ -48,6 +52,10 @@ const mqConfig = {
     address: process.env.USER_DATA_RES_QUEUE_ADDRESS,
     type: 'sessionQueue'
   },
+  filesStoredTopicAddress: {
+    address: process.env.FILES_STORED_TOPIC_ADDRESS,
+    type: 'topic'
+  },
   applicationRequestMsgType: `${msgTypePrefix}.app.request`,
   fetchApplicationRequestMsgType: `${msgTypePrefix}.fetch.app.request`
 }
@@ -73,9 +81,15 @@ const userDataResponseQueueAddress = {
   ...mqResult.value.messageQueue,
   ...mqResult.value.userDataResponseQueueAddress
 }
+const filesStoredTopicAddress = {
+  ...mqResult.value.messageQueue,
+  ...mqResult.value.filesStoredTopicAddress
+}
+
 module.exports = {
   fileStoreQueue,
   applicationRequestMsgType,
   userDataRequestQueueAddress,
-  userDataResponseQueueAddress
+  userDataResponseQueueAddress,
+  filesStoredTopicAddress
 }

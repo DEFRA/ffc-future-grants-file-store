@@ -1,7 +1,8 @@
 const { Client } = require('pg')
 const {
   applicationRequestMsgType,
-  userDataResponseQueueAddress
+  userDataResponseQueueAddress,
+  filesStoredTopicAddress
 } = require('../config/messaging')
 const { sendMessage } = require('../messaging')
 
@@ -58,6 +59,8 @@ const saveMetadataHandler = async (data) => {
     }
     await client.end()
     console.log('Data saved successfully.')
+    await sendMessage({data, message: 'New file(s) added to Database.'}, applicationRequestMsgType, filesStoredTopicAddress)
+    console.log('<<<Topic message successfully sent!>>>')
     return true
   } catch (error) {
     console.error('Error saving data to the database:\n', error)
