@@ -59,7 +59,7 @@ const saveMetadataHandler = async (data) => {
     }
     await client.end()
     console.log('Data saved successfully.')
-    await sendMessage({data, message: 'New file(s) added to Database.'}, applicationRequestMsgType, filesStoredTopicAddress)
+    await sendMessage({ data, message: 'New file(s) added to Database.' }, applicationRequestMsgType, filesStoredTopicAddress)
     console.log('<<<Topic message successfully sent!>>>')
     return true
   } catch (error) {
