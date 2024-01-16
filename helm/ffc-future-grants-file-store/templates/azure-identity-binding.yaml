@@ -1,0 +1,5 @@
+{{- if .Values.aadPodIdentity }}
+{{- include "ffc-helm-library.azure-identity-binding" (list . "ffc-future-grants-file-store.azure-identity-binding") -}}
+{{- end }}
+{{- define "ffc-future-grants-file-store.azure-identity-binding" -}}
+{{- end -}}

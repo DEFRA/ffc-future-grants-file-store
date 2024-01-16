@@ -1,7 +1,43 @@
-{{- include "ffc-helm-library.container-config-map" (list . "ffc-template-node.config-map") -}}
-{{- define "ffc-template-node.config-map" -}}
+{{- include "ffc-helm-library.container-config-map" (list . "ffc-future-grants-file-store.config-map") -}}
+{{- define "ffc-future-grants-file-store.config-map" -}}
 data:
   NODE_ENV: {{ quote .Values.environment }}
   PORT: {{ quote .Values.container.port }}
+  NAMESPACE: {{ quote .Values.namespace }}
   APPINSIGHTS_CLOUDROLE: {{ quote .Values.name }}
+  APPLICATION_REQUEST_QUEUE_ADDRESS: {{ quote .Values.container.applicationRequestQueueAddress }}
+  FILE_STORE_QUEUE_ADDRESS: {{ quote .Values.container.fileStoreQueueAddress }}
+  USER_DATA_REQ_QUEUE_ADDRESS: {{ quote .Values.container.userDataRequestQueueAddress }}
+  USER_DATA_RES_QUEUE_ADDRESS: {{ quote .Values.container.userDataResponseQueueAddress }}
+  APPLICATION_RESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.applicationResponseQueueAddress }}
+  COOKIE_PASSWORD: {{quote .Values.container.cookiePassword}}
+  EVENT_QUEUE_ADDRESS: {{ .Values.container.eventQueueAddress }}
+  MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
+  {{- if .Values.container.redisHostname }}
+  REDIS_HOSTNAME: {{ quote .Values.container.redisHostname }}
+  {{- end }}
+  {{- if .Values.pr }}
+  REDIS_PARTITION: {{ .Values.container.redisPartition }}-{{ .Values.pr }}
+  {{ else }}
+  REDIS_PARTITION: {{ quote .Values.container.redisPartition }}
+  {{- end }}
+  REDIS_PORT: {{ quote .Values.container.redisPort }}
+  URL_PREFIX: {{ quote .Values.container.urlPrefix }}
+  REGISTER_YOUR_INTEREST_REQUEST_QUEUE_ADDRESS: {{ quote .Values.container.registerYourInterestRequestQueueAddress }}
+  DEFRA_ID_TENANT: {{ quote .Values.container.defraIdTenant }}
+  DEFRA_ID_POLICY: {{ quote .Values.container.defraIdPolicy }}
+  DEFRA_ID_REDIRECT_URI: {{ quote .Values.container.defraIdRedirectUri }}
+  DEFRA_ID_JWT_ISSUER_ID: {{ quote .Values.container.defraIdJwtIssuerId }}
+  RPA_HOST_NAME: {{ quote .Values.container.rpaHostname }}
+  RPA_GET_PERSON_SUMMARY_URL: {{ quote .Values.container.rpaGetPersonSummaryUrl }}
+  RPA_GET_ORGANISATION_PERMISSIONS_URL: {{ quote .Values.container.rpaGetOrganisationPermissionsUrl }}
+  RPA_GET_ORGANISATION_URL: {{ quote .Values.container.rpaGetOrganisationUrl }}
+  RPA_GET_CPH_NUMBERS_URL: {{ quote .Values.container.rpaGetCphNumbersUrl }}
+  APIM_HOST_NAME: {{ quote .Values.container.apimHostname }}
+  APIM_OAUTH_PATH: {{ quote .Values.container.apimOAuthPath }}
+  APIM_SCOPE: {{ quote .Values.container.apimScope }}
+  BLOB_STORAGE_ACCOUNT_NAME: {{ .Values.container.blobStorageAccountName | quote }}
+  BLOB_STORAGE_CONTAINER_NAME: {{ .Values.container.blobStorageContainerName | quote }}
+  USE_BLOB_STORAGE_CONNECTION_STRING: {{ .Values.container.useBlobStorageConnectionString | quote }}
+  WRECK_HTTP_TIMEOUT_MILLISECONDS: {{ quote .Values.wreckHttp.timeoutMilliseconds }}
 {{- end -}}
