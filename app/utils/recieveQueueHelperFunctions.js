@@ -125,7 +125,6 @@ const getMetadataHandler = async (userId) => {
         }
       }
     }
-
     return data
   } catch (error) {
     await client.end()
