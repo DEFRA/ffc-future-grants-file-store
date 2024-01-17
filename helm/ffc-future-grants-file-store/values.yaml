@@ -6,6 +6,8 @@ image: ffc-future-grants-file-store
 
 labels: {}
 
+aadPodIdentity: true
+
 appInsights:
   key: not-a-real-key
 
