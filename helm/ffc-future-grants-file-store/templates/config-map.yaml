@@ -30,5 +30,4 @@ data:
   BLOB_STORAGE_ACCOUNT_NAME: {{ .Values.container.blobStorageAccountName | quote }}
   BLOB_STORAGE_CONTAINER_NAME: {{ .Values.container.blobStorageContainerName | quote }}
   USE_BLOB_STORAGE_CONNECTION_STRING: {{ .Values.container.useBlobStorageConnectionString | quote }}
-  WRECK_HTTP_TIMEOUT_MILLISECONDS: {{ quote .Values.wreckHttp.timeoutMilliseconds }}
 {{- end -}}
