@@ -13,15 +13,6 @@ data:
   COOKIE_PASSWORD: {{quote .Values.container.cookiePassword}}
   EVENT_QUEUE_ADDRESS: {{ .Values.container.eventQueueAddress }}
   MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
-  {{- if .Values.container.redisHostname }}
-  REDIS_HOSTNAME: {{ quote .Values.container.redisHostname }}
-  {{- end }}
-  {{- if .Values.pr }}
-  REDIS_PARTITION: {{ .Values.container.redisPartition }}-{{ .Values.pr }}
-  {{ else }}
-  REDIS_PARTITION: {{ quote .Values.container.redisPartition }}
-  {{- end }}
-  REDIS_PORT: {{ quote .Values.container.redisPort }}
   URL_PREFIX: {{ quote .Values.container.urlPrefix }}
   REGISTER_YOUR_INTEREST_REQUEST_QUEUE_ADDRESS: {{ quote .Values.container.registerYourInterestRequestQueueAddress }}
   DEFRA_ID_TENANT: {{ quote .Values.container.defraIdTenant }}
