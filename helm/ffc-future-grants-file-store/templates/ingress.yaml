@@ -1,3 +1,0 @@
-{{- include "ffc-helm-library.azure-ingress" (list . "ffc-future-grants-file-store.ingress") -}}
-{{- define "ffc-future-grants-file-store.ingress" -}}
-{{- end -}}
