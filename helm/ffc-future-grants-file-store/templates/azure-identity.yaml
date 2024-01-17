@@ -1,5 +1,3 @@
-{{- if .Values.aadPodIdentity }}
 {{- include "ffc-helm-library.azure-identity" (list . "ffc-future-grants-file-store.azure-identity") -}}
-{{- end }}
 {{- define "ffc-future-grants-file-store.azure-identity" -}}
 {{- end -}}
