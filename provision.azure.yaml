@@ -1,3 +1,5 @@
 resources:
   topics:
     - name: fileCreated
+  queues:
+    - name: event
