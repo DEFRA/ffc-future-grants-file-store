@@ -1,44 +1,72 @@
-environment: production
-environmentCode:
-name: ffc-template-node
-namespace: ffc-demo
-workstream: ffc-demo
-image: ffc-template-node
+environment: development
+name: ffc-future-grants-file-store
+namespace: ffc-future-grants
+workstream: ffc-future-grants
+image: ffc-future-grants-file-store
 
-labels:
-  component: service
+labels: {}
 
 appInsights:
-  connectionString:
+  key: not-a-real-key
+
+azureIdentity:
+  clientID: not-a-real-clientID
+  resourceID: not-a-real-resourceID
 
 containerConfigMap:
-  name: ffc-template-node-config-map
+  name: ffc-future-grants-file-store-config-map
 
 containerSecret:
-  name: ffc-template-node-container-secret
+  name: ffc-future-grants-file-store-container-secret
   type: Opaque
 
-deployment: {}
+deployment:
+  restartPolicy: Always
+  priorityClassName: default
+  minReadySeconds: 0
+  redeployOnChange: update this field to force a change
+  replicas: 2
+  minReplicas: 2
+  maxReplicas: 3
+  cpuThreshold: 80
+  memoryThreshold: 80
 
 container:
-  requestMemory: 100Mi
-  requestCpu: 100m
-  limitMemory: 100Mi
-  limitCpu: 100m
+  imagePullPolicy: IfNotPresent
+  requestMemory: 120Mi
+  requestCpu: 120m
+  limitMemory: 120Mi
+  limitCpu: 120m
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
   port: 3000
+  messageQueueHost: dummy
+  fileCreatedTopicAddress: file-created
+  fileCreatedSubscriptionAddress: file-sender
+  protectiveMonitoringUrl:
+  blobStorageAccountName: blob-account
+  blobStorageContainerName: not-a-real-container
+  blobStorageConnectionString: dummy
+  useBlobStorageConnectionString: false
+  sharePointHostname: not-a-real-value
+  sharePointSitePath: not-a-real-value
+  sharePointTenantId: not-a-real-value
+  sharePointClientId: not-a-real-value
+  sharePointClientSecret: not-a-real-value
+  sharePointDocumentLibrary: not-a-real-value
 
 livenessProbe:
   path: /healthz
   port: 3000
-  initialDelaySeconds: 20
-  periodSeconds: 10
-  failureThreshold: 3
+  initialDelaySeconds: 30
+  periodSeconds: 30
   timeoutSeconds: 5
+  failureThreshold: 5
 
 readinessProbe:
   path: /healthy
   port: 3000
   initialDelaySeconds: 30
-  periodSeconds: 10
-  failureThreshold: 3
+  periodSeconds: 30
   timeoutSeconds: 5
+  failureThreshold: 5
