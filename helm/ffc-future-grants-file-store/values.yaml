@@ -9,11 +9,11 @@ labels: {}
 aadPodIdentity: true
 
 appInsights:
-  key: not-a-real-key
+  connectionString:
 
 azureIdentity:
-  clientID: not-a-real-clientID
-  resourceID: not-a-real-resourceID
+  clientID:
+  resourceID:
 
 containerConfigMap:
   name: ffc-future-grants-file-store-config-map
@@ -23,24 +23,22 @@ containerSecret:
   type: Opaque
 
 deployment:
-  restartPolicy: Always
-  priorityClassName: default
-  minReadySeconds: 0
-  redeployOnChange: update this field to force a change
-  replicas: 2
-  minReplicas: 2
-  maxReplicas: 3
   cpuThreshold: 80
   memoryThreshold: 80
+  minReadySeconds: 0
+  minReplicas: 2
+  maxReplicas: 4
+  priorityClassName: high
+  replicas: 2
+  restartPolicy: Always
+  redeployOnChange: update this field to force a change
 
 container:
   imagePullPolicy: IfNotPresent
   requestMemory: 120Mi
   requestCpu: 120m
-  limitMemory: 120Mi
-  limitCpu: 120m
-  readOnlyRootFilesystem: true
-  allowPrivilegeEscalation: false
+  limitMemory: 400Mi
+  limitCpu: 400m
   port: 3000
   messageQueueHost: dummy
   fileCreatedTopicAddress: file-created
@@ -50,12 +48,6 @@ container:
   blobStorageContainerName: not-a-real-container
   blobStorageConnectionString: dummy
   useBlobStorageConnectionString: false
-  sharePointHostname: not-a-real-value
-  sharePointSitePath: not-a-real-value
-  sharePointTenantId: not-a-real-value
-  sharePointClientId: not-a-real-value
-  sharePointClientSecret: not-a-real-value
-  sharePointDocumentLibrary: not-a-real-value
 
 livenessProbe:
   path: /healthz
