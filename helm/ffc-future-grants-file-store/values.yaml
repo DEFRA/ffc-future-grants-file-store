@@ -1,4 +1,4 @@
-environment: development
+environment: snd
 name: ffc-future-grants-file-store
 namespace: ffc-future-grants
 workstream: ffc-future-grants
