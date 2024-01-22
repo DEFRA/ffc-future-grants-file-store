@@ -12,8 +12,8 @@ appInsights:
   connectionString:
 
 azureIdentity:
-  clientID:
-  resourceID:
+  clientID: dummy
+  resourceID: dummy
 
 containerConfigMap:
   name: ffc-future-grants-file-store-config-map
@@ -63,8 +63,8 @@ container:
   defraIdClientId:
   defraIdClientSecret:
   defraIdServiceId:
-  postgresDb:
-  postgresqlHost:
+  postgresDb: dummy
+  postgresqlHost: dummy
   defraIdPolicy:
   rpaHostname:
   blobStorageAccountName: blob-account
