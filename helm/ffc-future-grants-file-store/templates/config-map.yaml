@@ -26,6 +26,8 @@ data:
   APIM_HOST_NAME: {{ quote .Values.container.apimHostname }}
   APIM_OAUTH_PATH: {{ quote .Values.container.apimOAuthPath }}
   APIM_SCOPE: {{ quote .Values.container.apimScope }}
+  POSTGRES_DB: {{ quote .Values.postgresService.postgresDb }}
+  POSTGRES_HOST: {{ quote .Values.postgresService.postgresqlHost }}
   BLOB_STORAGE_ACCOUNT_NAME: {{ .Values.container.blobStorageAccountName | quote }}
   BLOB_STORAGE_CONTAINER_NAME: {{ .Values.container.blobStorageContainerName | quote }}
   USE_BLOB_STORAGE_CONNECTION_STRING: {{ .Values.container.useBlobStorageConnectionString | quote }}
