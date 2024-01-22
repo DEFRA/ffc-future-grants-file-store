@@ -7,8 +7,6 @@ services:
   ffc-future-grants-file-store:
     build:
       target: development
-    environment:
-      NODE_ENV: test
     image: ffc-future-grants-file-store-development
     container_name: ffc-future-grants-file-store-test
     command: npm run test
