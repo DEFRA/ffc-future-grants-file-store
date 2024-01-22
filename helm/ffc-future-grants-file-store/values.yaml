@@ -1,7 +1,7 @@
-environment: production
+environment: development
 name: ffc-future-grants-file-store
-namespace: ffc-future-grants
-workstream: ffc-future-grants
+namespace: ffc-grants
+workstream: ffc-grants
 image: ffc-future-grants-file-store
 
 labels: {}
