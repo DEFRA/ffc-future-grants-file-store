@@ -28,7 +28,7 @@ deployment:
   minReadySeconds: 0
   minReplicas: 2
   maxReplicas: 4
-  priorityClassName: high
+  priorityClassName: default
   replicas: 2
   restartPolicy: Always
   redeployOnChange: update this field to force a change
@@ -39,6 +39,8 @@ container:
   requestCpu: 120m
   limitMemory: 400Mi
   limitCpu: 400m
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
   fileCreatedTopicAddress: file-created
   fileCreatedSubscriptionAddress: file-sender
   protectiveMonitoringUrl:
