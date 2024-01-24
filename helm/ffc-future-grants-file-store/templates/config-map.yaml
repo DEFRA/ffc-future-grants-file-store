@@ -12,6 +12,5 @@ data:
   APPLICATION_RESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.applicationResponseQueueAddress }}
   EVENT_QUEUE_ADDRESS: {{ .Values.container.eventQueueAddress }}
   MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
-  REGISTER_YOUR_INTEREST_REQUEST_QUEUE_ADDRESS: {{ quote .Values.container.registerYourInterestRequestQueueAddress }}
   FILES_STORED_TOPIC_ADDRESS: {{ quote .Values.container.filesStoredTopicAddress }}
 {{- end -}}
