@@ -45,8 +45,9 @@ container:
   fileCreatedSubscriptionAddress: file-sender
   applicationRequestQueueAddress: ffc-future-grants-application-request
   fileStoreQueueAddress: ffc-future-grants-file-data
-  userDataRequestQueueAddress:
-  userDataResponseQueueAddress:
+  userDataReqQueueAddress: dummy
+  userDataResQueueAddress: dummy
+  filesStoredTopicAddress: dummy
   applicationResponseQueueAddress: ffc-future-grants-application-response
   eventQueueAddress: ffc-ahwr-event
   messageQueueHost: namespace.servicebus.windows.net
