@@ -10,7 +10,6 @@ data:
   USER_DATA_REQ_QUEUE_ADDRESS: {{ quote .Values.container.userDataReqQueueAddress }}
   USER_DATA_RES_QUEUE_ADDRESS: {{ quote .Values.container.userDataResQueueAddress }}
   APPLICATION_RESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.applicationResponseQueueAddress }}
-  EVENT_QUEUE_ADDRESS: {{ .Values.container.eventQueueAddress }}
   MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
   MESSAGE_QUEUE_USER: {{ .Values.container.messageQueueUser }}
   MESSAGE_QUEUE_PASSWORD: {{ .Values.container.messageQueuePassword }}
