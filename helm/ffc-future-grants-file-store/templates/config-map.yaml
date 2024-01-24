@@ -12,5 +12,7 @@ data:
   APPLICATION_RESPONSE_QUEUE_ADDRESS: {{ quote .Values.container.applicationResponseQueueAddress }}
   EVENT_QUEUE_ADDRESS: {{ .Values.container.eventQueueAddress }}
   MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
+  MESSAGE_QUEUE_USER: {{ .Values.container.messageQueueUser }}
+  MESSAGE_QUEUE_PASSWORD: {{ .Values.container.messageQueuePassword }}
   FILES_STORED_TOPIC_ADDRESS: {{ quote .Values.container.filesStoredTopicAddress }}
 {{- end -}}

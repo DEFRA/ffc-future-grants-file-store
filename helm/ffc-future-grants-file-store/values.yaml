@@ -51,10 +51,11 @@ container:
   applicationResponseQueueAddress: ffc-future-grants-application-response
   eventQueueAddress: ffc-ahwr-event
   messageQueueHost: namespace.servicebus.windows.net
+  messageQueueUser: dummy
+  messageQueuePassword: dummy
   port: 3000
   postgresDb: dummy
   postgresqlHost: dummy
-
 
 livenessProbe:
   path: /healthz
