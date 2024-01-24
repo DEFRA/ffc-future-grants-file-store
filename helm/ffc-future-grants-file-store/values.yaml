@@ -43,47 +43,17 @@ container:
   allowPrivilegeEscalation: false
   fileCreatedTopicAddress: file-created
   fileCreatedSubscriptionAddress: file-sender
-  protectiveMonitoringUrl:
   applicationRequestQueueAddress: ffc-future-grants-application-request
   fileStoreQueueAddress: ffc-future-grants-file-data
   userDataRequestQueueAddress:
   userDataResponseQueueAddress:
   applicationResponseQueueAddress: ffc-future-grants-application-response
-  cookiePassword: who-likes-cookies-i-like-cookies-everybody-likes-cookies
   eventQueueAddress: ffc-ahwr-event
   messageQueueHost: namespace.servicebus.windows.net
   port: 3000
-  redisHostname: redis-hostname.default
-  redisPartition: ffc-future-grants-apply
-  redisPassword: redis
-  redisPort: 6379
-  urlPrefix: /apply
-  registerYourInterestRequestQueueAddress: ffc-ahwr-register-your-interest-request
-  defraIdTenant:
-  defraIdRedirectUri:
-  defraIdJwtIssuerId:
-  defraIdClientId:
-  defraIdClientSecret:
-  defraIdServiceId:
   postgresDb: dummy
   postgresqlHost: dummy
-  defraIdPolicy:
-  rpaHostname:
-  blobStorageAccountName: blob-account
-  blobStorageContainerName: not-a-real-container
-  blobStorageConnectionString: dummy
-  claimFormDownloadUrl: dummy
-  rpaGetPersonSummaryUrl:
-  rpaGetOrganisationPermissionsUrl:
-  rpaGetOrganisationUrl:
-  rpaGetCphNumbersUrl:
-  apimOcpSubscriptionKey:
-  apimHostname:
-  apimOAuthPath:
-  apimClientId:
-  apimClientSecret:
-  apimScope:
-  useBlobStorageConnectionString: false
+
 
 livenessProbe:
   path: /healthz
