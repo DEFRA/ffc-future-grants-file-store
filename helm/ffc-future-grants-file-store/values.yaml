@@ -27,7 +27,7 @@ deployment:
   memoryThreshold: 80
   minReadySeconds: 0
   minReplicas: 2
-  maxReplicas: 4
+  maxReplicas: 3
   priorityClassName: default
   replicas: 2
   restartPolicy: Always
@@ -38,7 +38,7 @@ container:
   requestMemory: 120Mi
   requestCpu: 120m
   limitMemory: 400Mi
-  limitCpu: 400m
+  limitCpu: 120m
   readOnlyRootFilesystem: true
   allowPrivilegeEscalation: false
   applicationRequestQueueAddress: ffc-future-grants-application-request
