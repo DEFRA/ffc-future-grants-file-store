@@ -65,14 +65,20 @@ async function executeSQLScript () {
     user: process.env.POSTGRES_USER,
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
-    password: process.env.POSTGRES_PASSWORD
+    password: process.env.POSTGRES_PASSWORD,
+    ssl: {
+      rejectUnauthorized: false
+    }
   })
   const client = new Client({
     user: process.env.POSTGRES_USER,
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DB
+    database: process.env.POSTGRES_DB,
+    ssl: {
+      rejectUnauthorized: false
+    }
   })
   try {
     if (process.env.NODE_ENV === 'production') {
