@@ -14,8 +14,8 @@ data:
   MESSAGE_QUEUE_USER: {{ .Values.container.messageQueueUser }}
   MESSAGE_QUEUE_PASSWORD: {{ .Values.container.messageQueuePassword }}
   FILES_STORED_TOPIC_ADDRESS: {{ quote .Values.container.filesStoredTopicAddress }}
-  POSTGRES_DB: {{ quote .Values.container.postgresDb | quote }}
-  POSTGRES_HOST: {{ quote .Values.container.postgresqlHost | quote }}
+  POSTGRES_DB: {{ quote .Values.container.postgresDb }}
+  POSTGRES_HOST: {{ quote .Values.container.postgresqlHost }}
   POSTGRES_USER: {{ quote .Values.container.postgresUser }}
   POSTGRES_PASSWORD: {{ quote .Values.container.fileStorePostgresPassword }}
 {{- end -}}
