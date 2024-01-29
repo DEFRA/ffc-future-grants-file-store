@@ -12,7 +12,7 @@ services:
     environment:
       POSTGRES_DB: ffc_future_grants_file_store
       POSTGRES_PASSWORD: ppp
-      POSTGRES_USER: postgres
+      POSTGRES_USER: adminuser@sndffcdbssq1002
       POSTGRES_HOST: ffc-future-grants-file-store-postgres
       POSTGRES_PORT: 5432
       POSTGRES_SCHEMA_NAME: public

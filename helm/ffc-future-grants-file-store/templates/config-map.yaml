@@ -16,4 +16,5 @@ data:
   FILES_STORED_TOPIC_ADDRESS: {{ quote .Values.container.filesStoredTopicAddress }}
   POSTGRES_DB: {{ .Values.container.postgresDb | quote }}
   POSTGRES_HOST: {{ .Values.container.postgresqlHost | quote }}
+  POSTGRES_USER: {{ .Values.container.postgresUser }}
 {{- end -}}

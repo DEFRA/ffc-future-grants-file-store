@@ -53,6 +53,7 @@ container:
   messageQueuePassword: ppp
   port: 3000
   postgresDb: ffc_future_grants_file_store
+  postgresUser: adminuser@sndffcdbssq1002
 
 livenessProbe:
   path: /healthz
