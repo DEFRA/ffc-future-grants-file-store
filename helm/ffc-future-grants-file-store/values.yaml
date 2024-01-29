@@ -43,16 +43,16 @@ container:
   allowPrivilegeEscalation: false
   applicationRequestQueueAddress: ffc-future-grants-application-request
   fileStoreQueueAddress: ffc-future-grants-file-data
-  userDataReqQueueAddress: dummy
-  userDataResQueueAddress: dummy
-  filesStoredTopicAddress: dummy
+  userDataReqQueueAddress: ffc-future-grants-user-file-data-req-aj
+  userDataResQueueAddress: ffc-future-grants-user-file-data-res-aj
+  filesStoredTopicAddress: ffc-future-grants-files-stored-aj
   applicationResponseQueueAddress: ffc-future-grants-application-response
   messageQueueHost: namespace.servicebus.windows.net
-  messageQueueUser: dummy
-  messageQueuePassword: dummy
+  messageQueueUser: postgres
+  messageQueuePassword: ppp
   port: 3000
-  postgresDb: dummy
-  postgresqlHost: dummy
+  postgresDb: ffc_future_grants_file_store
+  postgresqlHost: ffc-future-grants-file-store-postgres
 
 livenessProbe:
   path: /healthz
