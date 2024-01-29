@@ -46,13 +46,13 @@ container:
   userDataReqQueueAddress: ffc-future-grants-user-file-data-req-aj
   userDataResQueueAddress: ffc-future-grants-user-file-data-res-aj
   filesStoredTopicAddress: ffc-future-grants-files-stored-aj
+  postgresqlHost: sndffcdbssq1002.postgres.database.azure.com
   applicationResponseQueueAddress: ffc-future-grants-application-response
   messageQueueHost: namespace.servicebus.windows.net
   messageQueueUser: postgres
   messageQueuePassword: ppp
   port: 3000
   postgresDb: ffc_future_grants_file_store
-  postgresqlHost: ffc-future-grants-file-store-postgres
 
 livenessProbe:
   path: /healthz
