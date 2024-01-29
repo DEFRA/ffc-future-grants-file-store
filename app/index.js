@@ -62,13 +62,13 @@ process.on('SIGTERM', async () => {
 async function executeSQLScript () {
   const DB_NAME = process.env.POSTGRES_DB
   const clientWithOutDb = new Client({
-    user: process.env.POSTGRES_USER,
+    user: 'postgres',
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     password: process.env.POSTGRES_PASSWORD
   })
   const client = new Client({
-    user: process.env.POSTGRES_USER,
+    user: 'postgres',
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     password: process.env.POSTGRES_PASSWORD,
