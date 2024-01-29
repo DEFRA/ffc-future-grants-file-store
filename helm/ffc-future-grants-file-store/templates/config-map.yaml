@@ -17,5 +17,5 @@ data:
   POSTGRES_DB: {{ quote .Values.container.postgresDb }}
   POSTGRES_HOST: {{ quote .Values.container.postgresqlHost }}
   POSTGRES_USER: {{ quote .Values.container.postgresUser }}
-  POSTGRES_PASSWORD: {{ quote .Values.container.fileStorePostgresPassword }}
+  POSTGRES_PASSWORD: {{ quote .Values.container.fileStorePostgresDbPassword }}
 {{- end -}}
