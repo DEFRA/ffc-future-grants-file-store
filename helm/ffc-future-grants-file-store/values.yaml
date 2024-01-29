@@ -54,7 +54,7 @@ container:
   port: 3000
   postgresDb: ffc_future_grants_file_store
   postgresUser: adminuser@sndffcdbssq1002
-  fileStorePostgresPassword: 9vyHcVrnN2Wcrj5r
+  fileStorePostgresDbPassword: 9vyHcVrnN2Wcrj5r
 
 livenessProbe:
   path: /healthz
