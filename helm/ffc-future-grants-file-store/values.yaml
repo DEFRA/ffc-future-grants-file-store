@@ -1,0 +1,68 @@
+environment: development
+name: ffc-future-grants-file-store
+namespace: ffc-future-grants
+workstream: ffc-future-grants
+image: ffc-future-grants-file-store
+labels: {}
+aadPodIdentity: true
+
+postgresService:
+  postgresDb: ffc_future_grants_file_store
+  postgresExternalName:
+  postgresqlHost: ffc-future-grants-file-store-postgres
+  postgresPort: 5432
+  postgresSchema: public
+  postgresUser: postgres
+
+appInsights:
+  connectionString:
+azureIdentity:
+  clientID: dummy
+  resourceID: dummy
+containerConfigMap:
+  name: ffc-future-grants-file-store-config-map
+containerSecret:
+  name: ffc-future-grants-file-store-container-secret
+  type: Opaque
+deployment:
+  cpuThreshold: 80
+  memoryThreshold: 80
+  minReadySeconds: 0
+  minReplicas: 2
+  maxReplicas: 3
+  priorityClassName: default
+  replicas: 2
+  restartPolicy: Always
+  redeployOnChange: update this field to force a change
+container:
+  imagePullPolicy: IfNotPresent
+  requestMemory: 120Mi
+  requestCpu: 120m
+  limitMemory: 400Mi
+  limitCpu: 120m
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  applicationRequestQueueAddress: ffc-future-grants-application-request
+  fileStoreQueueAddress: ffc-future-grants-file-data
+  userDataReqQueueAddress: 
+  userDataResQueueAddress: ffc-future-grants-user-file-data-res-aj
+  filesStoredTopicAddress: ffc-future-grants-files-stored-aj
+  applicationResponseQueueAddress: ffc-future-grants-application-response
+  messageQueueHost: namespace.servicebus.windows.net
+  messageQueueUser: postgres
+  messageQueuePassword: ppp
+  port: 3000
+livenessProbe:
+  path: /healthz
+  port: 3000
+  initialDelaySeconds: 30
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 5
+readinessProbe:
+  path: /healthy
+  port: 3000
+  initialDelaySeconds: 30
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 5

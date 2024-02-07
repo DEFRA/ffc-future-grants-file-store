@@ -1,0 +1,8 @@
+{{- include "ffc-helm-library.deployment" (list . "ffc-future-grants-file-store.deployment") -}}
+{{- define "ffc-future-grants-file-store.deployment" -}}
+spec:
+  template:
+    spec:
+      containers:
+      - {{ include "ffc-helm-library.container" (list . "ffc-future-grants-file-store.container") }}
+{{- end -}}
