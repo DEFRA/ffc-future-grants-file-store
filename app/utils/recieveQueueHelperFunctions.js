@@ -7,6 +7,7 @@ const {
 const { sendMessage } = require('../messaging')
 
 const initUserDataReceiver = async (sessionId, userId) => {
+  console.log('ahsdahs')
   try {
     const userData = await getMetadataHandler(userId)
     await sendMessage(
@@ -68,7 +69,7 @@ const saveMetadataHandler = async (data) => {
     await client.end()
   }
 }
-const deleteMetedataHandler = async (fileId) => {
+const deleteMetadataHandler = async (fileId) => {
   const query = 'DELETE FROM ffc_future_grants_file_store WHERE file_id = $1'
   const client = new Client({
     user: process.env.POSTGRES_USER,
@@ -134,6 +135,6 @@ const getMetadataHandler = async (userId) => {
 
 module.exports = {
   saveMetadataHandler,
-  deleteMetedataHandler,
+  deleteMetadataHandler,
   initUserDataReceiver
 }
