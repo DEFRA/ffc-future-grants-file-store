@@ -1,6 +1,6 @@
 {
   "name": "ffc-future-grants-file-store",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "DB for our grants apply journey",
   "homepage": "https://github.com/DEFRA/ffc-future-grants-file-store",
   "main": "app/index.js",
