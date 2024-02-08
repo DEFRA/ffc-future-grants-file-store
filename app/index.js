@@ -82,7 +82,6 @@ async function runSqlScript () {
     const res = await clientWithOutDb.query(
       `SELECT datname FROM pg_catalog.pg_database WHERE datname = '${DB_NAME}'`
     )
-    console.log(res.rows);
     if (res.rowCount === 0) {
       console.log(`${DB_NAME} database not found, creating it...`)
       await clientWithOutDb.query(`CREATE DATABASE ${DB_NAME}`)
