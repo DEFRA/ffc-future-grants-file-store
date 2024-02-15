@@ -3,7 +3,9 @@ name: ffc-future-grants-file-store
 namespace: ffc-future-grants
 workstream: ffc-future-grants
 image: ffc-future-grants-file-store
+
 labels: {}
+
 aadPodIdentity: true
 
 postgresService:
@@ -45,9 +47,8 @@ container:
   applicationRequestQueueAddress: ffc-future-grants-application-request
   fileStoreQueueAddress: ffc-future-grants-file-data
   userDataReqQueueAddress: 
-  userDataResQueueAddress: ffc-future-grants-user-file-data-res-aj
-  filesStoredTopicAddress: ffc-future-grants-files-stored-aj
-  applicationResponseQueueAddress: ffc-future-grants-application-response
+  userDataResQueueAddress: ffc-future-grants-user-file-data-res
+  filesStoredTopicAddress: ffc-future-grants-files-stored
   messageQueueHost: namespace.servicebus.windows.net
   messageQueueUser: postgres
   messageQueuePassword: ppp
