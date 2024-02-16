@@ -5,7 +5,6 @@ data:
   PORT: {{ quote .Values.container.port }}
   NAMESPACE: {{ quote .Values.namespace }}
   APPINSIGHTS_CLOUDROLE: {{ quote .Values.name }}
-  APPLICATION_REQUEST_QUEUE_ADDRESS: {{ quote .Values.container.applicationRequestQueueAddress }}
   FILE_STORE_QUEUE_ADDRESS: {{ quote .Values.container.fileStoreQueueAddress }}
   USER_DATA_REQ_QUEUE_ADDRESS: {{ quote .Values.container.userDataReqQueueAddress }}
   USER_DATA_RES_QUEUE_ADDRESS: {{ quote .Values.container.userDataResQueueAddress }}
