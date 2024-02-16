@@ -53,7 +53,9 @@ const mqConfig = {
   filesStoredTopicAddress: {
     address: process.env.FILES_STORED_TOPIC_ADDRESS,
     type: 'topic'
-  }
+  },
+  applicationRequestMsgType: `${msgTypePrefix}.app.request`,
+  fetchApplicationRequestMsgType: `${msgTypePrefix}.fetch.app.request`
 }
 const mqResult = mqSchema.validate(mqConfig, {
   abortEarly: false
