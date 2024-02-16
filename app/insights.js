@@ -1,5 +1,5 @@
 const appInsights = require('applicationinsights')
-const config = require('../config/server')
+const config = require('./config/server')
 
 function setup () {
   if (config.appInsights?.key) {
