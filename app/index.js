@@ -19,16 +19,10 @@ let fileStoreReceiver
 let userDataReceiver
 
 async function init () {
-  try {
     await initializeMessageReceivers()
     await server.start()
     console.log('Server running on %s', server.info.uri)
     // await runSqlScript()
-  } catch (error) {
-    console.error('Error during initialization:', error)
-    await cleanup()
-    process.exit(1)
-  }
 }
 process.on('unhandledRejection', async (err) => {
   console.log('[ERROR HERE]')
