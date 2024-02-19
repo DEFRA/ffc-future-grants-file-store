@@ -3,7 +3,9 @@ name: ffc-future-grants-file-store
 namespace: ffc-future-grants
 workstream: ffc-future-grants
 image: ffc-future-grants-file-store
+
 labels: {}
+
 aadPodIdentity: true
 
 postgresService:
@@ -15,54 +17,57 @@ postgresService:
   postgresUser: postgres
 
 appInsights:
-  connectionString:
+  key: not-a-real-key
+
 azureIdentity:
   clientID: dummy
   resourceID: dummy
+
 containerConfigMap:
   name: ffc-future-grants-file-store-config-map
+
 containerSecret:
   name: ffc-future-grants-file-store-container-secret
   type: Opaque
+
 deployment:
-  cpuThreshold: 80
-  memoryThreshold: 80
+  restartPolicy: Always
+  priorityClassName: default
   minReadySeconds: 0
+  redeployOnChange: update this field to force a change
+  replicas: 2
   minReplicas: 2
   maxReplicas: 3
-  priorityClassName: default
-  replicas: 2
-  restartPolicy: Always
-  redeployOnChange: update this field to force a change
+  cpuThreshold: 80
+  memoryThreshold: 80
+
 container:
   imagePullPolicy: IfNotPresent
   requestMemory: 120Mi
   requestCpu: 120m
-  limitMemory: 400Mi
+  limitMemory: 120Mi
   limitCpu: 120m
   readOnlyRootFilesystem: true
   allowPrivilegeEscalation: false
-  applicationRequestQueueAddress: ffc-future-grants-application-request
+  messageQueueHost: dummy
   fileStoreQueueAddress: ffc-future-grants-file-data
   userDataReqQueueAddress: 
-  userDataResQueueAddress: ffc-future-grants-user-file-data-res-aj
-  filesStoredTopicAddress: ffc-future-grants-files-stored-aj
-  applicationResponseQueueAddress: ffc-future-grants-application-response
-  messageQueueHost: namespace.servicebus.windows.net
+  userDataResQueueAddress: ffc-future-grants-user-file-data-res
+  filesStoredTopicAddress: ffc-future-grants-files-stored
   messageQueueUser: postgres
   messageQueuePassword: ppp
   port: 3000
+
 livenessProbe:
   path: /healthz
   port: 3000
-  initialDelaySeconds: 30
-  periodSeconds: 30
-  timeoutSeconds: 5
-  failureThreshold: 5
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  failureThreshold: 3
+
 readinessProbe:
   path: /healthy
   port: 3000
-  initialDelaySeconds: 30
-  periodSeconds: 30
-  timeoutSeconds: 5
-  failureThreshold: 5
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  failureThreshold: 3

@@ -20,10 +20,10 @@ let userDataReceiver
 
 async function init () {
   try {
-    await runSqlScript()
     await initializeMessageReceivers()
     await server.start()
     console.log('Server running on %s', server.info.uri)
+    await runSqlScript()
   } catch (error) {
     console.error('Error during initialization:', error)
     await cleanup()

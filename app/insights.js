@@ -1,15 +1,21 @@
 const appInsights = require('applicationinsights')
+const config = require('./config/server')
 
-const setup = () => {
-  if (process.env.APPINSIGHTS_CONNECTIONSTRING) {
-    appInsights.setup(process.env.APPINSIGHTS_CONNECTIONSTRING).start()
-    console.log('App Insights running')
+function setup () {
+  if (config.appInsights?.key) {
+    appInsights.setup().start()
     const cloudRoleTag = appInsights.defaultClient.context.keys.cloudRole
-    const appName = process.env.APPINSIGHTS_CLOUDROLE
+    const appName = config.appInsights.role
     appInsights.defaultClient.context.tags[cloudRoleTag] = appName
-  } else {
-    console.log('App Insights not running')
   }
 }
-
-module.exports = { setup }
+function logException (error, sessionId) {
+  const client = appInsights.defaultClient
+  client?.trackException({
+    exception: error ?? new Error('unknown'),
+    properties: {
+      sessionId: sessionId || ''
+    }
+  })
+}
+module.exports = { setup, logException }
