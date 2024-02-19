@@ -13,6 +13,8 @@ const {
 const fs = require('fs')
 const MessageSenders = require('./messaging/create-message-sender')
 const MessageReceivers = require('./messaging/create-message-receiver')
+const { environments } = require('./config/constants')
+
 
 let fileStoreReceiver
 let userDataReceiver
