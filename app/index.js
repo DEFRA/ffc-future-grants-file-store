@@ -1,6 +1,6 @@
 const server = require('./server')
 const { MessageReceiver } = require('ffc-messaging')
-const { Client } = require('pg')
+// const { Client } = require('pg')
 const {
   fileStoreQueue,
   userDataRequestQueueAddress
@@ -10,10 +10,10 @@ const {
   deleteMetadataHandler,
   initUserDataReceiver
 } = require('./utils/recieveQueueHelperFunctions')
-const fs = require('fs')
+// const fs = require('fs')
 const MessageSenders = require('./messaging/create-message-sender')
 const MessageReceivers = require('./messaging/create-message-receiver')
-const { environments } = require('./config/constants')
+// const { environments } = require('./config/constants')
 
 let fileStoreReceiver
 let userDataReceiver
