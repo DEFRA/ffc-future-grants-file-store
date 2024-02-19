@@ -1,7 +1,7 @@
 const server = require('./server')
 const { MessageReceiver } = require('ffc-messaging')
 const { Client } = require('pg')
-const { DefaultAzureCredential } = require('@azure/identity')
+// const { DefaultAzureCredential } = require('@azure/identity')
 const {
   fileStoreQueue,
   userDataRequestQueueAddress
@@ -33,7 +33,7 @@ async function init () {
 process.on('unhandledRejection', async (err) => {
   console.log('[ERROR HERE]')
   console.log(err)
-  await messageService.stop()
+  await cleanup()
   process.exit(1)
 })
 
@@ -85,7 +85,7 @@ async function runSqlScript () {
     //     `SET SESSION AUTHORIZATION DEFAULT, PUBLIC, ${accessToken.token}`
     //   )
     // }
-    console.log([CHECKING IF DB EXIST])
+    console.log('[CHECKING IF DB EXIST]')
     await clientWithOutDb.connect()
     const res = await clientWithOutDb.query(
       `SELECT datname FROM pg_catalog.pg_database WHERE datname = '${DB_NAME}'`
@@ -96,7 +96,7 @@ async function runSqlScript () {
       console.log(`YAHOO DB SUCCESSFULLY CREATED ${DB_NAME}.`)
     }
     await clientWithOutDb.end()
-    console.log([TRYING TO READ SCRIPT FILE])
+    console.log('[TRYING TO READ SCRIPT FILE]')
     const sqlScript = fs.readFileSync('./sql/tables.sql', 'utf8')
     await client.connect()
     await client.query(sqlScript)
