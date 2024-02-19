@@ -75,16 +75,6 @@ async function runSqlScript () {
     database: process.env.POSTGRES_DB
   })
   try {
-    // if (process.env.NODE_ENV === 'production') {
-    //   console.log()
-    //   const credential = new DefaultAzureCredential()
-    //   const accessToken = await credential.getToken(
-    //     'https://ossrdbms-aad.database.windows.net'
-    //   )
-    //   await client.query(
-    //     `SET SESSION AUTHORIZATION DEFAULT, PUBLIC, ${accessToken.token}`
-    //   )
-    // }
     console.log('[CHECKING IF DB EXIST]')
     await clientWithOutDb.connect()
     const res = await clientWithOutDb.query(
