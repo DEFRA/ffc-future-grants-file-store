@@ -3,6 +3,7 @@ const fs = require('fs')
 const { environments } = require('../config/constants')
 
 async function runSqlScript () {
+  console.log('IN RUN SCRIPT FUNCTION \n \n')
   const DB_NAME = process.env.POSTGRES_DB
   const clientWithOutDb = new Client({
     user: process.env.POSTGRES_USER,
