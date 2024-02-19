@@ -22,7 +22,7 @@ async function init () {
   await initializeMessageReceivers()
   await server.start()
   console.log('Server running on %s', server.info.uri)
-    // await runSqlScript()
+  // await runSqlScript()
 }
 process.on('unhandledRejection', async (err) => {
   console.log('[ERROR HERE]')
