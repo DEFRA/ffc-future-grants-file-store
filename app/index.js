@@ -1,7 +1,6 @@
 const server = require('./server')
 const { MessageReceiver } = require('ffc-messaging')
 const { Client } = require('pg')
-// const { DefaultAzureCredential } = require('@azure/identity')
 const {
   fileStoreQueue,
   userDataRequestQueueAddress
@@ -65,14 +64,16 @@ async function runSqlScript () {
     user: process.env.POSTGRES_USER,
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
-    password: process.env.POSTGRES_PASSWORD
+    password: process.env.POSTGRES_PASSWORD,
+    ssl: process.env.NODE_ENV === environments.production
   })
   const client = new Client({
     user: process.env.POSTGRES_USER,
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DB
+    database: process.env.POSTGRES_DB,
+    ssl: process.env.NODE_ENV === environments.production
   })
   try {
     console.log('[CHECKING IF DB EXIST]')
