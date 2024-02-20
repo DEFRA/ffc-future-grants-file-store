@@ -32,7 +32,7 @@ const dbConfig = {
   },
   hooks,
   host: process.env.POSTGRES_HOST || 'ffc-future-grants-file-store-postgres',
-  password: process.env.POSTGRES_PASSWORD,
+  password: '26a627e7-9608-4ff9-a2cb-0eb1e492612d',
   port: process.env.POSTGRES_PORT || 5432,
   logging: process.env.POSTGRES_LOGGING || false,
   retry,
