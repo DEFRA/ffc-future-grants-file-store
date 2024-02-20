@@ -28,8 +28,10 @@ module.exports = (() => {
   console.log('SEQUELIZE MODEL PATH==> ', modelPath)
   console.log('SEQUELIZE MODELS ARRAY==> ', sequelize.models)
   for (const model of Object.values(sequelize.models)) {
+    console.log('MODEL in db-service.js', model)
+    console.log('model.associate result ===> ', model.associate)
     if (model.associate) {
-      console.log('IN {model.associate} condition/ file {db-service.js}')
+      console.log('model.associate was true and passed')
       model.associate(sequelize.models)
     }
   }
