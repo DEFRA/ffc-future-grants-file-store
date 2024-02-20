@@ -6,7 +6,6 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
                    http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd
                    http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
-
     <changeSet author="Ali (generated)" id="1618513558165-1">
         <createTable tableName="ffc_future_grants_file_store">
             <column name="file_data_id" autoIncrement="true" type="BIGINT">
@@ -67,6 +66,11 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <rollback>
+        <dropTable tableName="ffc_future-grants_file_store" schemaName="public" cascadeConstraints="true"/>
+        </rollback>
     </changeSet>
-
+    <changeSet author="Ali Jahankah" id="1618513558165-2">
+        <tagDatabase tag="v1.0.0" />
+    </changeSet>
 </databaseChangeLog>
