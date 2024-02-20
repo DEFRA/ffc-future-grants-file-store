@@ -7,7 +7,7 @@ const modelPath = path.join(__dirname, '..', 'models')
 
 module.exports = (() => {
   const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, dbConfig)
-  console.log('SEQUELIZE VALUE IN {db-service.js}');
+  console.log('SEQUELIZE VALUE IN {db-service.js}')
 
   fs
     .readdirSync(modelPath)
