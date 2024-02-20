@@ -7,7 +7,7 @@ const {
 const { sendMessage } = require('../messaging')
 
 const initUserDataReceiver = async (sessionId, userId) => {
-  console.log('ahsdahs')
+  console.log('IN INIT USER DATA HANDLER')
   try {
     const userData = await getMetadataHandler(userId)
     await sendMessage(
@@ -23,6 +23,8 @@ const initUserDataReceiver = async (sessionId, userId) => {
 }
 
 const saveMetadataHandler = async (data) => {
+  console.log('IN SAVE META DATA HANDLER')
+
   const query = `
       INSERT INTO ffc_future_grants_file_store (
         file_id, file_name, file_size, file_type, file_extension, category,
@@ -70,6 +72,8 @@ const saveMetadataHandler = async (data) => {
   }
 }
 const deleteMetadataHandler = async (fileId) => {
+  console.log('IN DELETE META DATA HANDLER')
+
   const query = 'DELETE FROM ffc_future_grants_file_store WHERE file_id = $1'
   const client = new Client({
     user: process.env.POSTGRES_USER,
@@ -87,6 +91,7 @@ const deleteMetadataHandler = async (fileId) => {
   }
 }
 const getMetadataHandler = async (userId) => {
+  console.log('IN GET META DATA HANDLER')
   const query = 'SELECT * FROM ffc_future_grants_file_store WHERE user_id = $1'
   const client = new Client({
     user: process.env.POSTGRES_USER,
