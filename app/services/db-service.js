@@ -7,6 +7,7 @@ const modelPath = path.join(__dirname, '..', 'models')
 
 module.exports = (() => {
   const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, dbConfig)
+  console.log('SEQUELIZE VALUE IN {db-service.js}')
 
   fs
     .readdirSync(modelPath)
@@ -17,6 +18,7 @@ module.exports = (() => {
 
   for (const model of Object.values(sequelize.models)) {
     if (model.associate) {
+      console.log('IN {model.associate} condition/ file {db-service.js}')
       model.associate(sequelize.models)
     }
   }
