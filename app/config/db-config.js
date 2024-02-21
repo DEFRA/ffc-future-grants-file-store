@@ -8,8 +8,11 @@ function isProd () {
 const hooks = {
   beforeConnect: async (cfg) => {
     if (isProd()) {
+      console.log('[HELLO I AM IN HOOK CONNECT]')
       const credential = new DefaultAzureCredential()
       const accessToken = await credential.getToken('https://ossrdbms-aad.database.windows.net')
+      console.log('[HELLO I GOT THE TOKEN NOW]')
+
       cfg.password = accessToken.token
     }
   }
