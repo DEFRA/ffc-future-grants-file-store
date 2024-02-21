@@ -34,7 +34,7 @@ const mqConfig = {
     host: process.env.SERVICE_BUS_HOST,
     password: process.env.SERVICE_BUS_PASSWORD,
     username: process.env.SERVICE_BUS_USER,
-    useCredentialChain: process.env.NODE_ENV === 'production'
+    useCredentialChain: process.env.NODE_ENV === 'production',
     appInsights:
       process.env.NODE_ENV === 'production'
         ? require('applicationinsights')
