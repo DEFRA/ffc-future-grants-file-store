@@ -31,10 +31,10 @@ const mqSchema = Joi.object({
 })
 const mqConfig = {
   messageQueue: {
-    host: process.env.MESSAGE_QUEUE_HOST,
-    username: process.env.MESSAGE_QUEUE_USER,
-    password: process.env.MESSAGE_QUEUE_PASSWORD,
-    useCredentialChain: process.env.NODE_ENV === 'production',
+    host: process.env.SERVICE_BUS_HOST,
+    password: process.env.SERVICE_BUS_PASSWORD,
+    username: process.env.SERVICE_BUS_USER,
+    useCredentialChain: process.env.NODE_ENV === 'production'
     appInsights:
       process.env.NODE_ENV === 'production'
         ? require('applicationinsights')
