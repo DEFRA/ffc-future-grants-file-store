@@ -11,7 +11,7 @@ const hooks = {
       console.log('\n \n in before connect \n \n')
       const credential = new DefaultAzureCredential()
       const accessToken = await credential.getToken('https://ossrdbms-aad.database.windows.net')
-      console.log('\n \n ACCESS TOKEN ===>'. accessToken, '\n');
+      console.log('\n \n ACCESS TOKEN ===>', accessToken, '\n')
       cfg.password = accessToken.token
     }
   }
