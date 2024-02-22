@@ -6,8 +6,6 @@ image: ffc-future-grants-file-store
 
 labels: {}
 
-aadPodIdentity: true
-
 postgresService:
   postgresDb: ffc_future_grants_file_store
   postgresExternalName:
@@ -20,8 +18,8 @@ appInsights:
   key: not-a-real-key
 
 azureIdentity:
-  clientID: dummy
-  resourceID: dummy
+  clientID: not-a-real-clientID
+  resourceID: not-a-real-resourceID
 
 containerConfigMap:
   name: ffc-future-grants-file-store-config-map
@@ -59,13 +57,13 @@ container:
 livenessProbe:
   path: /healthz
   port: 3000
-  initialDelaySeconds: 20
-  periodSeconds: 20
+  initialDelaySeconds: 10
+  periodSeconds: 10
   failureThreshold: 3
 
 readinessProbe:
   path: /healthy
   port: 3000
-  initialDelaySeconds: 20
-  periodSeconds: 20
+  initialDelaySeconds: 10
+  periodSeconds: 10
   failureThreshold: 3
