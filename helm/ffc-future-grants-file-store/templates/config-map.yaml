@@ -4,13 +4,11 @@ data:
   NODE_ENV: {{ quote .Values.environment }}
   PORT: {{ quote .Values.container.port }}
   NAMESPACE: {{ quote .Values.namespace }}
+  SERVICE_BUS_HOST: {{ quote .Values.container.messageQueueHost }}
   APPINSIGHTS_CLOUDROLE: {{ quote .Values.name }}
   FILE_STORE_QUEUE_ADDRESS: {{ quote .Values.container.fileStoreQueueAddress }}
   USER_DATA_REQ_QUEUE_ADDRESS: {{ quote .Values.container.userDataReqQueueAddress }}
   USER_DATA_RES_QUEUE_ADDRESS: {{ quote .Values.container.userDataResQueueAddress }}
-  MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
-  MESSAGE_QUEUE_USER: {{ .Values.container.messageQueueUser }}
-  MESSAGE_QUEUE_PASSWORD: {{ .Values.container.messageQueuePassword }}
   FILES_STORED_TOPIC_ADDRESS: {{ quote .Values.container.filesStoredTopicAddress }}
   POSTGRES_DB: {{ quote .Values.postgresService.postgresDb }}
   POSTGRES_HOST: {{ quote .Values.postgresService.postgresqlHost }}
