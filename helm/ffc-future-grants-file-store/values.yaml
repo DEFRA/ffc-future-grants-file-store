@@ -51,23 +51,21 @@ container:
   allowPrivilegeEscalation: false
   messageQueueHost: dummy
   fileStoreQueueAddress: ffc-future-grants-file-data
-  userDataReqQueueAddress: 
+  userDataReqQueueAddress: ffc-future-grants-user-file-data-req
   userDataResQueueAddress: ffc-future-grants-user-file-data-res
   filesStoredTopicAddress: ffc-future-grants-files-stored
-  messageQueueUser: postgres
-  messageQueuePassword: ppp
   port: 3000
 
 livenessProbe:
   path: /healthz
   port: 3000
   initialDelaySeconds: 20
-  periodSeconds: 10
+  periodSeconds: 20
   failureThreshold: 3
 
 readinessProbe:
   path: /healthy
   port: 3000
   initialDelaySeconds: 20
-  periodSeconds: 10
+  periodSeconds: 20
   failureThreshold: 3
