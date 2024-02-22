@@ -8,8 +8,10 @@ function isProd () {
 const hooks = {
   beforeConnect: async (cfg) => {
     if (isProd()) {
+      console.log('\n \n in before connect \n \n')
       const credential = new DefaultAzureCredential()
       const accessToken = await credential.getToken('https://ossrdbms-aad.database.windows.net')
+      console.log('\n \n ACCESS TOKEN ===>'. accessToken, '\n');
       cfg.password = accessToken.token
     }
   }
@@ -27,9 +29,6 @@ const retry = {
 const dbConfig = {
   database: process.env.POSTGRES_DB || 'ffc_future_grants_file_store',
   dialect: 'postgres',
-  dialectOptions: {
-    ssl: isProd()
-  },
   hooks,
   host: process.env.POSTGRES_HOST || 'ffc-future-grants-file-store-postgres',
   password: process.env.POSTGRES_PASSWORD,
