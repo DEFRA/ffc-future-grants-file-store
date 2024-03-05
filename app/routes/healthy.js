@@ -9,9 +9,7 @@ module.exports = {
   options: {
     handler: async (request, h) => {
       try {
-        console.log('BEFORE sequelize.authenticate in HEALTHY.JS')
-        const healthyTest = await sequelize.authenticate()
-        console.log(' sequelize.authenticate RESULT ===>', healthyTest)
+        await sequelize.authenticate()
         return h.response('ok').code(OK)
       } catch (err) {
         console.error('Error running healthy check', err)

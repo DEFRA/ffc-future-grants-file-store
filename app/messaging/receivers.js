@@ -14,11 +14,9 @@ const {
 let fileStoreReceiver
 let userDataReceiver
 async function initializeMessageReceivers () {
-  console.log('IN INIT MESSAGE RECEIVERS FUNCTIONS')
   userDataReceiver = new MessageReceiver(
     userDataRequestQueueAddress,
     async (msg) => {
-      console.log('User data message received')
       await initUserDataReceiver(msg.body.sessionId, msg.body.userId)
       await userDataReceiver.completeMessage(msg)
     }
@@ -37,19 +35,16 @@ async function initializeMessageReceivers () {
 }
 
 async function cleanup () {
-  console.log('IN CLEAN UP FUNCTION')
   await MessageSenders.closeAllConnections()
   await MessageReceivers.closeAllConnections()
 }
 
 process.on('SIGINT', async () => {
-  console.log('IN SIGINT FUNCTION')
   await cleanup()
   process.exit(0)
 })
 
 process.on('SIGTERM', async () => {
-  console.log('IN SIGTERM FUNCTION')
   await cleanup()
   process.exit(0)
 })

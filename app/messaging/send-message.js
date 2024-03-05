@@ -8,7 +8,7 @@ const sendMessage = async (body, type, config, options) => {
     await sender.sendMessage(message)
     console.log('Queue message successfully sent!')
   } catch (error) {
-    console.log(error)
+    console.log('Error in sending message back: ', error)
   }
 }
 

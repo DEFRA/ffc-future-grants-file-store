@@ -13,8 +13,7 @@ async function init () {
 }
 
 process.on('unhandledRejection', async (err) => {
-  console.log('[ERROR HERE]')
-  console.log(err)
+  console.log('ERROR: ', err)
   await cleanup()
   process.exit(1)
 })

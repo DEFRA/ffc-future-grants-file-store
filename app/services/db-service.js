@@ -12,8 +12,6 @@ module.exports = (() => {
     dbConfig.password,
     dbConfig
   )
-  console.log('SEQUELIZE VALUE IN {db-service.js}', sequelize)
-
   fs.readdirSync(modelPath)
     .filter((file) => {
       return (
@@ -25,13 +23,8 @@ module.exports = (() => {
     .forEach((file) =>
       require(path.join(modelPath, file))(sequelize, DataTypes)
     )
-  console.log('SEQUELIZE MODEL PATH==> ', modelPath)
-  console.log('SEQUELIZE MODELS ARRAY==> ', sequelize.models)
   for (const model of Object.values(sequelize.models)) {
-    console.log('MODEL in db-service.js', model)
-    console.log('model.associate result ===> ', model.associate)
     if (model.associate) {
-      console.log('model.associate was true and passed')
       model.associate(sequelize.models)
     }
   }
